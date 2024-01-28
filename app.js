@@ -1,34 +1,63 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Get the date input field
+    // Get the date input field and buttons
     const dateInput = document.getElementById('dateInput');
+    const dateInputBtn = document.getElementById('dateInputBtn');
+    const submitButton = document.getElementById('submitButton');
 
-    // Add a click event listener to the date input
-    dateInput.addEventListener('click', function () {
-        // Display a window with attendance options
-        showAttendanceWindow();
+    // Add click event listeners to the "Date Input" and "Submit" buttons
+    dateInputBtn.addEventListener('click', function () {
+        // Display the attendance list
+        showAttendanceList();
     });
 
-    // Function to show the attendance window
-    function showAttendanceWindow() {
+    submitButton.addEventListener('click', function () {
+        // Display the attendance list
+        showAttendanceList();
+    });
+
+    // Function to show the attendance list
+    function showAttendanceList() {
         // Dummy list of names
         const names = ['John', 'Jane', 'Alice', 'Bob'];
 
-        // Create a prompt window with attendance options
-        let attendanceOptions = '';
+        // Get the container for attendance list
+        const attendanceListContainer = document.getElementById('attendanceList');
 
+        // Clear existing content
+        attendanceListContainer.innerHTML = '';
+
+        // Create attendance options for each name
         for (const name of names) {
-            attendanceOptions += `${name}:<br>`;
-            attendanceOptions += `<input type="radio" name="attendance_${name}" value="present"> Present `;
-            attendanceOptions += `<input type="radio" name="attendance_${name}" value="absent"> Absent<br>`;
-        }
+            const nameLabel = document.createElement('label');
+            nameLabel.textContent = `${name}:`;
 
-        attendanceOptions += '<button id="recordAttendanceBtn">Record Attendance</button>';
+            const presentInput = document.createElement('input');
+            presentInput.type = 'radio';
+            presentInput.name = `attendance_${name}`;
+            presentInput.value = 'present';
+            presentInput.classList.add('attendance-option');
 
-        const userSelections = window.prompt(attendanceOptions);
+            const presentLabel = document.createElement('span');
+            presentLabel.textContent = 'Present';
 
-        if (userSelections !== null) {
-            // User clicked "OK", handle the selected options
-            console.log('User selected:', userSelections);
+            const absentInput = document.createElement('input');
+            absentInput.type = 'radio';
+            absentInput.name = `attendance_${name}`;
+            absentInput.value = 'absent';
+            absentInput.classList.add('attendance-option');
+
+            const absentLabel = document.createElement('span');
+            absentLabel.textContent = 'Absent';
+
+            // Append elements to the container
+            attendanceListContainer.appendChild(nameLabel);
+            attendanceListContainer.appendChild(presentInput);
+            attendanceListContainer.appendChild(presentLabel);
+            attendanceListContainer.appendChild(absentInput);
+            attendanceListContainer.appendChild(absentLabel);
+
+            // Add a line break for better spacing
+            attendanceListContainer.appendChild(document.createElement('br'));
         }
     }
 });

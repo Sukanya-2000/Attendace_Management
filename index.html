@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="script" href="app.js">
     <title>Your Website</title>
 </head>
 <body>
 
     <nav>
         <ul>
-            <div class="date-input-container">
-                <label for="dateInput">Select a Date:</label>
-                <input type="date" id="dateInput" name="dateInput">
-            </div>
-    
-            <button id="submitButton">Search</button>
+            <li><a href="#" id="dateInputBtn">Date Input</a></li>
             
-            <li><a href="#">Fetch Attendance Report</a></li>
         </ul>
     </nav>
 
     <main>
+        <div class="date-input-container">
+            <label for="dateInput">Select a Date:</label>
+            <input type="date" id="dateInput" name="dateInput">
+            <li><a href="#" id="submitButton">Submit</a></li>
+        </div>
 
         <!-- Placeholder content, replace with your actual content -->
-        <div class="content">
-            <h1>Welcome to Attendance</h1>
+        <div id="attendanceList" class="content">
+            <h1>Welcome to Your Website</h1>
             <p>This is some sample content. Replace it with your own content.</p>
         </div>
     </main>
 
+    <script src="app.js"></script>
 </body>
 </html>
