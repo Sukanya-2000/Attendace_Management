@@ -1,3 +1,13 @@
+const db = require('./database');
+
+db.execute('SELECT * FROM attendance')
+    .then(result =>{
+        console.log(result);
+    })
+    .catch(err =>{
+        console.log(err);
+    });
+
 document.addEventListener('DOMContentLoaded', function () {
     // Get the date input field and buttons
     const dateInput = document.getElementById('dateInput');
@@ -5,15 +15,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('submitButton');
 
     // Add click event listeners to the "Date Input" and "Submit" buttons
-    dateInputBtn.addEventListener('click', function () {
-        // Display the attendance list
-        showAttendanceList();
-    });
+    /*dateInputBtn.addEventListener('click', function () {
+        // Display the attendance list if the date is filled
+        if (validateDate()) {
+            showAttendanceList();
+            showAddAllAttendanceButton();
+        }
+    });*/
 
     submitButton.addEventListener('click', function () {
-        // Display the attendance list
-        showAttendanceList();
+        // Display the attendance list if the date is filled
+        if (validateDate()) {
+            showAttendanceList();
+            showAddAllAttendanceButton();
+        }
     });
+
+    // Function to validate the date input
+    function validateDate() {
+        if (!dateInput.value) {
+            alert('Please fill in the date.');
+            return false;
+        }
+        return true;
+    }
 
     // Function to show the attendance list
     function showAttendanceList() {
@@ -59,5 +84,29 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add a line break for better spacing
             attendanceListContainer.appendChild(document.createElement('br'));
         }
+    }
+
+    // Function to show the "Add All Attendance" button
+    function showAddAllAttendanceButton() {
+        // Get the container for the button
+        const attendanceListContainer = document.getElementById('attendanceList');
+
+        // Create "Add All Attendance" button
+        const addAllAttendanceBtn = document.createElement('button');
+        addAllAttendanceBtn.textContent = 'Add All Attendance';
+        addAllAttendanceBtn.id = 'addAllAttendanceBtn';
+        addAllAttendanceBtn.addEventListener('click', function () {
+            // Handle all attendance records
+            handleAllAttendance();
+        });
+
+        // Append the button to the container
+        attendanceListContainer.appendChild(addAllAttendanceBtn);
+    }
+
+    // Function to handle all attendance records
+    function handleAllAttendance() {
+        // Dummy logic - replace with your actual logic
+        console.log('Handling all attendance records');
     }
 });
