@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+</head>
+<body>
+
+    <h1>Attendance Management</h1>
+
+    <form id="attendanceForm">
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" required>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="attendanceList"></div>
+
+    <button type="button" onclick="fetchRecords()">Fetch Record</button>
+
+    <script>
+        function createRadioButton(name, label, checked) {
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = name;  // Same name for all radio buttons in a group
+            radio.value = label.toLowerCase();
+            radio.checked = checked;
+
+            const labelElement = document.createElement('label');
+            labelElement.textContent = label;
+            labelElement.appendChild(radio);
+
+            return labelElement;
+        }
+
+        function displayAttendanceRecords() {
+            const attendanceListDiv = document.getElementById('attendanceList');
+            attendanceListDiv.innerHTML = ''; // Clear previous content
+
+            // Example data, you can replace this with your actual data
+            const names = ['John', 'Jane', 'Doe'];
+            const attendanceData = {};
+
+            names.forEach(name => {
+                const div = document.createElement('div');
+                div.textContent = name;
+
+                // Creating radio buttons
+                const presentRadio = createRadioButton(name, 'Present', false);
+                const absentRadio = createRadioButton(name, 'Absent', false);
+
+                div.appendChild(presentRadio);
+                div.appendChild(absentRadio);
+
+                attendanceListDiv.appendChild(div);
+            });
+
+            const addRecordButton = document.createElement('button');
+            addRecordButton.textContent = 'Add Record';
+            addRecordButton.onclick = addRecord;
+
+            attendanceListDiv.appendChild(addRecordButton);
+        }
+
+        function submitForm() {
+            // Here you can perform any additional actions before displaying the attendance list
+            displayAttendanceRecords();
+
+            // Save the current state to local storage
+            localStorage.setItem('attendancePage', 'displayRecords');
+        }
+
+        function addRecord() {
+            // Here you can add logic to store the attendance records for the selected date
+            alert('Record added successfully!');
+            location.reload(); // Refresh the page after adding the record
+        }
+
+        function fetchRecords() {
+            // Here you can add logic to fetch and display existing attendance records
+            alert('Fetching records...');
+
+            // Save the current state to local storage
+            localStorage.setItem('attendancePage', 'fetchRecords');
+        }
+
+        // Check local storage on page load
+        const currentPage = localStorage.getItem('attendancePage');
+
+        if (currentPage === 'displayRecords') {
+            displayAttendanceRecords();
+        } else if (currentPage === 'fetchRecords') {
+            fetchRecords();
+        }
+    </script>
+
+</body>
+</html>
