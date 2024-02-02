@@ -1,23 +1,51 @@
-// models/user.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../util/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../util/database");
 
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      attendance: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-    });
-  
-    return User;
-  };
-  
+const Attendance = sequelize.define("attendance", {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  ram: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  shyam: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  jadu: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  madhu: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  hari: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  oishi: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  titli: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nobita: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    unique: true,
+  },
+});
+
+module.exports = Attendance;
