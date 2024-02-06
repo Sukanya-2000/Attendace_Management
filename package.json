@@ -1,19 +1,20 @@
 {
-  "name": "attendace_management",
+  "name": "student-attendance",
   "version": "1.0.0",
-  "description": "this is an attendance_management system which made by me(Sukanya Bhattacharyya) as per the instruction of sharpener nodejs test project 1 and this project helps me to build a medium depth idea as well as experience about a nodejs project with database.",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "Skanya Bhattacharyya",
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mysql2": "^3.9.1",
+    "mysql2": "^3.6.2",
     "nodemon": "^3.0.3",
-    "sequelize": "^6.35.2"
+    "sequelize": "^6.33.0"
   }
 }

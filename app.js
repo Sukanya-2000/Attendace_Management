@@ -1,41 +1,41 @@
-// app.js
-const express = require('express');
-const cors = require('cors');
-//const userRoutes = require('./routes/attendance'); 
-const bodyParser = require('body-parser');
-const path = require('path');  // Add this line for path module
-const sequelize = require('./util/database');
-const userRoutes = require('./routes/attendance');
-const { errorHandeler } = require("./controllers/user");
+// Import required modules and dependencies
+const express = require('express'); // Import the Express framework
+const sequelize = require('./utils/database'); // Import Sequelize for database connection
+const cors = require('cors'); // Import CORS middleware for handling Cross-Origin Resource Sharing
+const bodyParser = require('body-parser'); // Import body-parser for handling request bodies
+const Student = require('./models/studentModel'); // Import the Student model
+const DateModel = require('./models/dateModel'); // Import the DateModel model
 
+// Create an instance of the Express application
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(cors());
+// Configure middleware
+app.use(bodyParser.urlencoded({ extended: false })); // Parse URL-encoded bodies
+app.use(bodyParser.json()); // Parse JSON bodies
+app.use(cors()); // Enable CORS for all routes
+app.use(express.static('public')); // Serve static files from the 'public' directory
 
-// Serve static files from the 'public' folder
-//app.use(express.static(path.join(__dirname, 'public')));
+// Import and use the attendance routes defined in 'route.js'
+const routeAttendance = require('./routes/route');
+app.use(routeAttendance);
 
-// Routes
-//app.use('/attendance', userRoutes);
-
-// Simple route to handle the root path
-app.get('/', (req, res) => {
-    res.send('Welcome to the Attendance Management System!');
+// Default route handler for unmatched routes
+app.use((req, res, next) => {
+    res.send("<h1>Welcome to the Attendance Tracker project"); // Send a welcome message
+    next(); // Move to the next middleware or route handler
 });
-app.use(errorHandeler);
 
-// Database sync
-sequelize.sync()
+// Define the association between the Student and DateModel models
+Student.belongsTo(DateModel, { constraints: true, onDelete: 'CASCADE' });
+DateModel.hasMany(Student);
+
+// Sync the Sequelize models with the database
+sequelize
+    //.sync({ force: true }) // Uncomment to force sync (drops existing tables)
+    .sync()
     .then(() => {
-        console.log('Database synced successfully');
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
+        // Start the Express server and listen on port 7000
+        app.listen(7000);
+        console.log('Listening on port 7000');
     })
-    .catch(err => {
-        console.log('Error syncing database:', err);
-    });
-
-
+    .catch(err => console.log(err)); // Log any errors during synchronization
